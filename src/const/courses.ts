@@ -1,9 +1,16 @@
 import { ImageSourcePropType } from "react-native";
 
+export type Languages = "english" | "hindi" | "kannada" | "nepali";
+
 export interface CourseContent {
   time: string;
   title: string;
-  link: string;
+  links: {
+    english: string;
+    hindi: string;
+    kannada: string;
+    nepali: string;
+  };
 }
 
 export interface Course {
@@ -18,22 +25,42 @@ const courseContent: CourseContent[] = [
   {
     time: "5:35 mins",
     title: "Welcome to the Course",
-    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    links: {
+      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
   },
   {
     time: "7:35 mins",
     title: "Design Thinking - Intro",
-    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    links: {
+      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
   },
   {
     time: "10:35 mins",
     title: "Design Thinking Process",
-    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    links: {
+      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
   },
   {
     time: "5:35 mins",
     title: "Customer Perspective",
-    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    links: {
+      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
   },
 ];
 

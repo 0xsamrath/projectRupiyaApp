@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import * as Linking from "expo-linking";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { getItem } from "../../lib/asyncStorage";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Course } from "../../const/courses";
+import { Course, CourseContent, Languages } from "../../const/courses";
 import React from "react";
 
 type RootStackParamList = {
@@ -24,7 +25,14 @@ const CourseScreen = ({
   const course = route.params;
 
   navigation.setOptions({ title: course.name });
-  const CourseContentList = ({ content, index }: { [key: string]: any }) => {
+
+  const CourseContentList = ({
+    content,
+    index,
+  }: {
+    content: CourseContent;
+    index: number;
+  }) => {
     return (
       <View
         style={{
@@ -62,8 +70,10 @@ const CourseScreen = ({
           }}
         >
           <TouchableHighlight
-            onPress={() => {
-              Linking.openURL(content.link);
+            onPress={async () => {
+              Linking.openURL(
+                content.links[(await getItem("language")) as Languages]
+              );
             }}
           >
             <Icon name="play-arrow" style={{ fontSize: 25, color: "#fff" }} />
@@ -134,7 +144,13 @@ const CourseScreen = ({
             showsVerticalScrollIndicator={false}
             data={course.courseContent}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
+            renderItem={({
+              item,
+              index,
+            }: {
+              item: CourseContent;
+              index: number;
+            }) => (
               <View>
                 <CourseContentList index={index} content={item} />
               </View>

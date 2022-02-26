@@ -1,6 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   Button,
   Dimensions,
@@ -12,7 +12,8 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import courses, {Course} from "../../const/courses";
+import courses, { Course } from "../../const/courses";
+import { getItem, setItem } from "../../lib/asyncStorage";
 
 type RootStackParamList = {};
 
@@ -20,22 +21,15 @@ const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList>) => {
   const [width] = useState(Dimensions.get("window").width);
-  const [welcome, setWelcome] = useState(false);
-  const [language, setLanguage] = useState(false);
+  const [welcome, setWelcome] = useState<string | undefined>(undefined);
+  const [language, setLanguage] = useState<string | undefined>(undefined);
 
-  const getItem = (key: string) => {
-    const value = AsyncStorage.getItem(`@internnova:${key}`).then((value) => {
-      console.log(value);
-      return value;
-    });
-    return value;
-  };
-
-  const setItem = (key: string, value: string) => {
-    AsyncStorage.setItem(`@internnova:${key}`, value).then(() => {
-      console.log("saved");
-    });
-  };
+  useEffect(() => {
+    (async () => {
+      setWelcome((await getItem("welcome")) || "");
+      setLanguage((await getItem("language")) || "");
+    })();
+  }, [language, welcome]);
 
   const WelcomeScreen = () => {
     return (
@@ -57,7 +51,7 @@ const HomeScreen = ({
         >
           Welcome to Project Rupiya
         </Text>
-        <Button title="Get Started" onPress={() => setWelcome(true)} />
+        <Button title="Get Started" onPress={() => setWelcome("done")} />
       </View>
     );
   };
@@ -91,12 +85,12 @@ const HomeScreen = ({
         />
         <Button
           title="continue"
-          onPress={() => {
+          onPress={async () => {
             if (!value) {
               setError("Please select a language");
             } else {
-              setItem("language", value);
-              setLanguage(true);
+              await setItem("language", value);
+              setLanguage(value);
             }
           }}
         />
@@ -104,7 +98,7 @@ const HomeScreen = ({
     );
   };
 
-  const CourseCard = ({ course }: {course: Course}) => {
+  const CourseCard = ({ course }: { course: Course }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
