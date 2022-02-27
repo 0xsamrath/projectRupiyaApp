@@ -1,12 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState, useRef } from "react";
-import { Image } from "react-native";
+import React from "react";
 import "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CourseScreen from "./src/view/screens/CourseScreen";
+import HomeScreen from "./src/view/screens/HomeScreen";
 
 const NavigationConfig = () => {
   return (
