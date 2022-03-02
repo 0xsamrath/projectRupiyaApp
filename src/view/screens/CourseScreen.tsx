@@ -12,19 +12,21 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { getItem } from "../../lib/asyncStorage";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Course, CourseContent, Languages } from "../../const/courses";
-import React from "react";
+import React, { useEffect } from "react";
 
 type RootStackParamList = {
-  course: Course;
+  course: {data: Course};
 };
 
 const CourseScreen = ({
   route,
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "course">) => {
-  const course = route.params;
+  const course = route.params.data;
 
+  useEffect(() => {
   navigation.setOptions({ title: course.name });
+  }, [navigation]);
 
   const CourseContentList = ({
     content,

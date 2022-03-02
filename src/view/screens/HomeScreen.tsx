@@ -2,24 +2,27 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import {
-  Button,
   Dimensions,
   FlatList,
   ImageBackground,
   SafeAreaView,
   Text,
   View,
+  Image,
+  TouchableHighlight,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import courses, { Course } from "../../const/courses";
 import { getItem, setItem } from "../../lib/asyncStorage";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 type RootStackParamList = {};
 
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList>) => {
+  const ScreenHeight = Dimensions.get("window").height;
   const [width] = useState(Dimensions.get("window").width);
   const [welcome, setWelcome] = useState<string | undefined>(undefined);
   const [language, setLanguage] = useState<string | undefined>(undefined);
@@ -41,6 +44,15 @@ const HomeScreen = ({
           backgroundColor: "#fff",
         }}
       >
+        <Image
+          source={require("../../assets/logo.png")}
+          style={{
+            width: width * 0.5,
+            height: width * 0.5,
+            resizeMode: "contain",
+            marginBottom: 20,
+          }}
+        />
         <Text
           style={{
             fontSize: 20,
@@ -51,7 +63,24 @@ const HomeScreen = ({
         >
           Welcome to Project Rupiya
         </Text>
-        <Button title="Get Started" onPress={() => setWelcome("done")} />
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#000",
+            marginBottom: 10,
+          }}
+        >
+          We will have a short description here
+        </Text>
+
+        <TouchableHighlight
+          onPress={async () => {
+            setWelcome("done");
+            await setItem("welcome", "done");
+          }}
+        >
+          <Icon name="arrow-forward" style={{ fontSize: 35, color: "#61688B"}} />
+        </TouchableHighlight>
       </View>
     );
   };
@@ -61,12 +90,30 @@ const HomeScreen = ({
     const [value, setValue] = useState<string | null>(null);
     const [error, setError] = useState("");
     const [items, setItems] = useState([
-      { label: "Apple", value: "apple" },
-      { label: "Banana", value: "banana" },
+      { label: "ಚ Kannada", value: "kannada" },
+      { label: "🇳🇵 Nepali", value: "nepali" },
+      { label: "🇮🇳 Hindi", value: "hindi" },
+      { label: "🇬🇧 English", value: "english" },
     ]);
 
     return (
-      <>
+      <View
+        style={{
+          backgroundColor: "white",
+          height: ScreenHeight,
+          paddingHorizontal: 10,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#000",
+            marginBottom: 20,
+          }}
+        >
+          Choose a language
+        </Text>
         <Text
           style={{
             color: "red",
@@ -79,22 +126,36 @@ const HomeScreen = ({
           value={value}
           items={items}
           setOpen={setOpen}
+          placeholder="Select a language"
           // @ts-ignore
           setValue={setValue}
           setItems={setItems}
         />
-        <Button
-          title="continue"
-          onPress={async () => {
-            if (!value) {
-              setError("Please select a language");
-            } else {
-              await setItem("language", value);
-              setLanguage(value);
-            }
+        <View
+          style={{
+            marginTop: 180,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        />
-      </>
+        >
+          <TouchableHighlight
+            onPress={async () => {
+              if (!value) {
+                setError("Please select a language");
+              } else {
+                await setItem("language", value);
+                setLanguage(value);
+              }
+            }}
+          >
+            <Icon
+              name="arrow-forward"
+              style={{ fontSize: 35, color: "#61688B" }}
+            />
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   };
 
@@ -135,40 +196,74 @@ const HomeScreen = ({
       </TouchableOpacity>
     );
   };
-  if (!getItem("welcome_done") || !welcome) {
+
+  if (welcome === undefined || language === undefined) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+        }}
+      >
+        <Image
+          source={require("../../assets/logo.png")}
+          style={{
+            width: width * 0.5,
+            height: width * 0.5,
+            resizeMode: "contain",
+            marginBottom: 20,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#000",
+            marginBottom: 10,
+          }}
+        >
+          Loading...
+        </Text>
+      </View>
+    );
+  }
+
+  if (welcome === "") {
     return <WelcomeScreen />;
   }
 
-  if (!getItem("language") || !language) {
+ else if (language === "") {
     return <LanguageScreen />;
+  } else {
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          paddingHorizontal: 20,
+        }}
+      >
+        <View style={{ marginTop: 20 }}>
+          <Text style={{ fontSize: 28, fontWeight: "bold" }}>Hello 👋</Text>
+          <Text style={{ fontSize: 22, color: "#61688B", marginTop: 15 }}>
+            Find a course you want to learn
+          </Text>
+          <View style={{ marginBottom: 40 }} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <FlatList
+            key="_"
+            showsVerticalScrollIndicator={false}
+            data={courses}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <CourseCard course={item} />}
+          />
+        </View>
+      </SafeAreaView>
+    );
   }
-
-  return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#fff",
-        flex: 1,
-        paddingHorizontal: 20,
-      }}
-    >
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ fontSize: 28, fontWeight: "bold" }}>Hello 👋</Text>
-        <Text style={{ fontSize: 22, color: "#61688B", marginTop: 15 }}>
-          Find a course you want to learn
-        </Text>
-        <View style={{ marginBottom: 40 }} />
-      </View>
-      <View style={{ flex: 1 }}>
-        <FlatList
-          key="_"
-          showsVerticalScrollIndicator={false}
-          data={courses}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CourseCard course={item} />}
-        />
-      </View>
-    </SafeAreaView>
-  );
 };
 
 export default HomeScreen;
