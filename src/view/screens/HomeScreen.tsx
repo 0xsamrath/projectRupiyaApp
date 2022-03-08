@@ -16,6 +16,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import courses, { Course } from "../../const/courses";
 import { getItem, setItem } from "../../lib/asyncStorage";
 import Icon from "react-native-vector-icons/MaterialIcons";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {};
 

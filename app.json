@@ -1,3 +1,40 @@
 {
-  "name": "projectRupiya"
+  "expo": {
+    "name": "projectRupiya",
+    "slug": "project-rupiya",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/logo.png",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "splash": {
+        "image": "./src/assets/splash.png",
+        "resizeMode": "cover"
+      },
+      "bundleIdentifier": "org.markup.exp"
+    },
+    "android": {
+      "splash": {
+        "mdpi": "./src/assets/splash.png",
+        "hdpi": "./src/assets/splash.png",
+        "xhdpi": "./src/assets/splash.png",
+        "xxhdpi": "./src/assets/splash.png",
+        "xxxhdpi": "./src/assets/splash.png",
+        "resizeMode": "cover"
+      },
+      "package": "org.samrath.projectrupiya"
+    },
+    "description": "Project rupiya empowers underpriveliged members of society to understand crucial financial topics in their native languages",
+    "githubUrl": "https://github.com/0xsamrath/projectrupiya"
+  }
 }
