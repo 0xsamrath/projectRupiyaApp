@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "projectRupiya",
+    "name": "Project Rupiya",
     "slug": "project-rupiya",
-    "sdkVersion": "32.0.0",
+    "primaryColor": "#2f944f",
     "platforms": [
       "ios",
       "android"
