@@ -21,51 +21,38 @@ export interface Course {
   courseContent: CourseContent[];
 }
 
+const links = {
+  english: "https://youtu.be/aJku7G2j9BU",
+  hindi: "https://youtu.be/HChBIRBiQFY",
+  kannada: "https://youtu.be/QIws8m8CARs",
+  nepali: "https://youtu.be/te30mJSgU38",
+};
+
 const courseContent: CourseContent[] = [
   {
     time: "5:35 mins",
     title: "Welcome to the Course",
-    links: {
-      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
+    links,
   },
   {
     time: "7:35 mins",
     title: "Design Thinking - Intro",
-    links: {
-      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
+    links,
   },
   {
     time: "10:35 mins",
     title: "Design Thinking Process",
-    links: {
-      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
+    links,
   },
   {
     time: "5:35 mins",
     title: "Customer Perspective",
-    links: {
-      english: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      hindi: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      kannada: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      nepali: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
+    links,
   },
 ];
 
 const description =
-  "DUMMY DESCRIPTION DUMMY DESCRIPTION DUMMY DESCRIPTION DUMMY DESCRIPTION DUMMY DESCRIPTION ";
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 const courses: Course[] = [
   {
