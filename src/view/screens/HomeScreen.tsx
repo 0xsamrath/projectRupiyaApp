@@ -16,6 +16,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import courses, { Course } from "../../const/courses";
 import { getItem, setItem } from "../../lib/asyncStorage";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {};
 
@@ -190,7 +191,7 @@ const HomeScreen = ({
             {course.name}
           </Text>
           <Text style={{ color: "#000000", fontWeight: "600" }}>
-            {course.totalCourse + " Courses"}
+            {course.totalVideos + " Videos"}
           </Text>
         </ImageBackground>
       </TouchableOpacity>
