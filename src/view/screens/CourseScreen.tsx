@@ -12,10 +12,10 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { getItem } from "../../lib/asyncStorage";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Course, CourseContent, Languages } from "../../const/courses";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 type RootStackParamList = {
-  course: {data: Course};
+  course: { data: Course };
 };
 
 const CourseScreen = ({
@@ -23,9 +23,16 @@ const CourseScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "course">) => {
   const course = route.params.data;
+  const [language, setLanguage] = useState<Languages>("english");
 
   useEffect(() => {
-  navigation.setOptions({ title: course.name });
+    (async () => {
+      const language = await getItem("language");
+      if (language) {
+        setLanguage(language as Languages);
+      }
+    })();
+    navigation.setOptions({ title: course.name });
   }, [navigation]);
 
   const CourseContentList = ({
@@ -46,17 +53,7 @@ const CourseScreen = ({
         <Text style={{ fontSize: 40, fontWeight: "bold", color: "#E4E7F4" }}>
           {"0" + (index + 1)}
         </Text>
-        <View style={{ paddingHorizontal: 20, flex: 1 }}>
-          <Text
-            style={{
-              fontSize: 15,
-              color: "#A0A5BD",
-              fontWeight: "500",
-              marginBottom: 5,
-            }}
-          >
-            {content.time}
-          </Text>
+        <View style={{ paddingHorizontal: 20, flex: 1, paddingTop: 15 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
             {content.title}
           </Text>
@@ -73,9 +70,7 @@ const CourseScreen = ({
         >
           <TouchableHighlight
             onPress={async () => {
-              Linking.openURL(
-                content.links[(await getItem("language")) as Languages]
-              );
+              Linking.openURL(content.links[language]);
             }}
           >
             <Icon name="play-arrow" style={{ fontSize: 25, color: "#fff" }} />
@@ -91,7 +86,7 @@ const CourseScreen = ({
           source={course.image}
           style={{
             height: 400,
-            paddingTop: 40,
+            paddingTop: 30,
             paddingRight: 20,
             paddingLeft: 20,
           }}
@@ -115,8 +110,14 @@ const CourseScreen = ({
             {course.name}
           </Text>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "#000000", fontWeight: "bold" }}>
-              {course.description}
+            <Text
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                fontSize: (language !== "english" && 20) || 16,
+              }}
+            >
+              {course.description[language] || ""}
             </Text>
           </View>
         </ImageBackground>

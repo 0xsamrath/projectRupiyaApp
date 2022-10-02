@@ -20,6 +20,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {};
 
+const intros = {
+  english: "Start from the basics and work your way up to applications. Best of luck on your journey!",
+  hindi: "बुनियादी बातों से शुरू करें और अनुप्रयोगों तक अपना काम करें। आपकी यात्रा पर शुभकामनाएँ!",
+  nepali: "आधारभूत कुराहरूबाट सुरु गर्नुहोस् र अनुप्रयोगहरूमा आफ्नो बाटो काम गर्नुहोस्। तपाईको यात्रामा शुभकामना!",
+  kannada: "ಬೇಸಿಕ್ಸ್ನಿಂದ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್ಗಳವರೆಗೆ ನಿಮ್ಮ ರೀತಿಯಲ್ಲಿ ಕೆಲಸ ಮಾಡಿ. ನಿಮ್ಮ ಪ್ರಯಾಣದಲ್ಲಿ ಶುಭವಾಗಲಿ!"
+}
+
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList>) => {
@@ -71,7 +78,8 @@ const HomeScreen = ({
             marginBottom: 10,
           }}
         >
-          Learn how to handle your <Text style={{ fontWeight: 'bold', color: "#2f944f" }}>rupiya</Text>
+          Learn how to handle your{" "}
+          <Text style={{ fontWeight: "bold", color: "#2f944f" }}>rupiya</Text>
         </Text>
 
         <TouchableHighlight
@@ -80,7 +88,10 @@ const HomeScreen = ({
             await setItem("welcome", "done");
           }}
         >
-          <Icon name="arrow-forward" style={{ fontSize: 35, color: "#61688B"}} />
+          <Icon
+            name="arrow-forward"
+            style={{ fontSize: 35, color: "#61688B" }}
+          />
         </TouchableHighlight>
       </View>
     );
@@ -233,9 +244,7 @@ const HomeScreen = ({
 
   if (welcome === "") {
     return <WelcomeScreen />;
-  }
-
- else if (language === "") {
+  } else if (language === "") {
     return <LanguageScreen />;
   } else {
     return (
@@ -247,9 +256,12 @@ const HomeScreen = ({
         }}
       >
         <View style={{ marginTop: 20 }}>
-          <Text style={{ fontSize: 28, fontWeight: "bold" }}>Hello 👋</Text>
-          <Text style={{ fontSize: 22, color: "#61688B", marginTop: 15 }}>
-            Find a course you want to learn
+          <Text style={{ fontSize: 28, fontWeight: "bold", color: "#2f944f" }}>
+            Welcome to Rupiya
+          </Text>
+          <Text style={{ fontSize: 18, color: "#61688B", marginTop: 15 }}>
+            {/* @ts-ignore */}
+            {intros[language]}
           </Text>
           <View style={{ marginBottom: 40 }} />
         </View>

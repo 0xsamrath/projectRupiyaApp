@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import "react-native-gesture-handler";
+import { View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -39,9 +40,9 @@ const NavigationConfig = () => {
 const Stack = createStackNavigator();
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <NavigationConfig />
-    </SafeAreaProvider>
+      <SafeAreaProvider>
+        <NavigationConfig />
+      </SafeAreaProvider>
   );
 };
 
