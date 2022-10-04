@@ -49,7 +49,3 @@ declare interface VideoPR {
   id: string;
   fields: VideoFields;
 }
-
-declare type RootStackParamList = {
-  Root: undefined;
-};

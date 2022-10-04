@@ -1,13 +1,12 @@
 // get video ID from course prop and fetch video data, render a react native component and video player
 // import react native components
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, Button } from "react-native";
 
-const CourseUI = ({ course }:{course:Course}) => {
+const CourseUI = ({ course, navigation }:{course:Course, navigation:any}) => {
   // define state for video data
   const [videos, setVideos] = useState<VideoPR[]>();
   // get video ID from course prop
-  console.log(course)
   const videoIds = course.fields.Videos;
 
   // fetch video data
@@ -22,9 +21,7 @@ const CourseUI = ({ course }:{course:Course}) => {
     };
     videoIds.forEach((videoId) => {
       fetchVideo(videoId);
-      console.log(videoId, videos);
     });
-    console.log(videos, videoIds);
 
     setVideos(videos);
   }, [videos]);
@@ -50,6 +47,8 @@ const CourseUI = ({ course }:{course:Course}) => {
             justifyContent: "flex-start",
           }}
         >
+<Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+
           <Text
             style={{
               fontSize: 20,

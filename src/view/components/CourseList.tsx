@@ -2,25 +2,27 @@ import React, { useState, useEffect } from "react";
 import { getItem } from "../../lib/asyncStorage";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 
-const CourseList = () => {
+// @ts-ignore
+const CourseList = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Course[]>([]);
   const [language, setLanguage] = useState<string | undefined>(undefined);
 
-    const title: LanguageDict = {
-      english: "Project Rupiya",
-      hindi: "परियोजना रुपिया",
-      kannada: "ಯೋಜನೆ ರೂಪಿಯಾ",
-      nepali: "परियोजना रुपिया",
-      tamil: "திட்டம் ரூபியா",
-      punjabi: "ਪ੍ਰੋਜੈਕਟ ਰੁਪਿਆ",
-    };
+  const title: LanguageDict = {
+    english: "Project Rupiya",
+    hindi: "परियोजना रुपिया",
+    kannada: "ಯೋಜನೆ ರೂಪಿಯಾ",
+    nepali: "परियोजना रुपिया",
+    tamil: "திட்டம் ரூபியா",
+    punjabi: "ਪ੍ਰੋਜੈਕਟ ਰੁਪਿਆ",
+  };
 
   useEffect(() => {
     (async () => {
       // conver to title case
-      const lang = (await getItem("language")) || "";
+      const lang: Languages = ((await getItem("language")) || "") as Languages;
       setLanguage(lang.substring(0, 1).toUpperCase() + lang.substring(1));
+      navigation.setOptions({ title: title[lang] });
     })();
   }, [language]);
 
@@ -48,7 +50,7 @@ const CourseList = () => {
         <FlatList
           data={data}
           keyExtractor={({ id }) => id}
-          renderItem={({item: course}) => (
+          renderItem={({ item: course }) => (
             <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
@@ -58,8 +60,8 @@ const CourseList = () => {
                 borderWidth: 1,
               }}
               onPress={() => {
-              }
-          }
+                navigation.navigate("Course", { course: course });
+              }}
             >
               <Text
                 style={{

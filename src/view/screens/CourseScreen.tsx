@@ -6,13 +6,15 @@ type RootStackParamList = {
   course: { data: Course };
 };
 
-const CourseScreen = () => {
-  const course = {};
+//@ts-ignore
+const CourseScreen = ({route, navigation}) => {
+  const {course} =  route.params;
 
   useEffect(() => {
+    navigation.setOptions({ title: course.title });
   }, []);
 
-  return <CourseUI course={course}  />;
+  return <CourseUI course={course} navigation={navigation} />;
 };
 
 export default CourseScreen;

@@ -19,7 +19,8 @@ import CourseList from "../components/CourseList";
 //   kannada: "ಬೇಸಿಕ್ಸ್ನಿಂದ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್ಗಳವರೆಗೆ ನಿಮ್ಮ ರೀತಿಯಲ್ಲಿ ಕೆಲಸ ಮಾಡಿ. ನಿಮ್ಮ ಪ್ರಯಾಣದಲ್ಲಿ ಶುಭವಾಗಲಿ!"
 // }
 
-const HomeScreen = () => {
+// @ts-ignore
+const HomeScreen = ({navigation}) => {
   const ScreenHeight = Dimensions.get("window").height;
   const [width] = useState(Dimensions.get("window").width);
   const [welcome, setWelcome] = useState<string | undefined>(undefined);
@@ -210,7 +211,7 @@ const HomeScreen = () => {
     return <WelcomeScreen />;
   } else {
     // return <Text>Home screen</Text>;
-    return <CourseList />
+    return <CourseList navigation={navigation} />
   }
 };
 
