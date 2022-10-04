@@ -1,5 +1,8 @@
 {
   "extends": "expo/tsconfig.base",
+  "paths": {
+    "*": ["*.d.ts"]
+},
   "compilerOptions": {
     "strict": true
   }
